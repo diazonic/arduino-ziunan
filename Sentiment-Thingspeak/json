@@ -1,0 +1,4 @@
+JSON - Lightweight format for storing and transporting data.
+1. It has {key:value} format like dictionaries in Python.
+2. Data is seperaated by commas.
+3. {} hold objects and [] hold arrays.
