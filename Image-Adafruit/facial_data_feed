@@ -1,0 +1,28 @@
+import base64
+import cv2
+from Adafruit_IO import Client, Data
+aio = Client('Diazonic', 'bb69d720de4446128cbbf7bcae1531a4')
+a = cv2.imread('people.jpg')
+model_face = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+demo_face = model_face.detectMultiScale(a,1.1,15)
+count_face = 1
+for (x,y,w,h) in demo_face:
+    cv2.rectangle(a,(x,y),(x+h,y+w),(255,100,0),5)
+    crop_face = a[y:y + h, x:x + w]
+    file_name_path = 'Demo_Image/Person' + str(count_face) + '.jpg'
+    cv2.imwrite(file_name_path,crop_face)
+    with open(file_name_path, "rb") as imageFile:
+	    val = base64.b64encode(imageFile.read()).decode('utf-8')
+
+    data = Data(value=val)
+    aio.create_data('fan', data)
+    cv2.putText(a, str(count_face), (x, y), cv2.FONT_HERSHEY_COMPLEX,
+                1, (255, 255, 255), 3)
+    count_face=count_face+1
+    data_count = Data(value=count_face)
+    aio.create_data('light', data_count)
+    cv2.imshow('Wind', a)
+    cv2.waitKey(500)
+cv2.waitKey(2000)
+cv2.destroyAllWindows()
+
