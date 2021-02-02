@@ -1,7 +1,7 @@
 import base64
 import cv2
 from Adafruit_IO import Client, Data
-aio = Client('Diazonic', 'bb69d720de4446128cbbf7bcae1531a4')
+aio = Client('SECRET')
 a = cv2.imread('people.jpg')
 model_face = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 demo_face = model_face.detectMultiScale(a,1.1,15)
