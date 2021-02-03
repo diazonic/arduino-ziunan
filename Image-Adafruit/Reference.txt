@@ -1,0 +1,25 @@
+Adafruit.io - Quick and efficient, Sending images are easy.
+ 
+1. Faces and its count
+2. Count value has to be sent on to the IoT Cloud platform
+3. Send the image of respective face along with the count to platform.
+
+- How to scrape the respective faces ?
+- How to save these 15 images?
+- How to convert images into Bytes of Data(json)?
+- How to send the Image to Adafruit?
+
+Reference: https://codebeautify.org/base64-to-image-converter
+
+Steps: 
+
+1. In the Facial recognition program, use the coordiantes of x and y to crop the image
+2. Use cv2.imwrite to save the images in .jpg format
+3. Convert your image to base64 format.
+Base64 gives you bytes like object data.
+4. Decode them to UTF-8 format.
+5. Send the data to Adafruit
+If you recieve the following error: 
+Adafruit_IO.errors.RequestError: Adafruit IO request failed: 422 Unprocessable Entity - request failed - Record invalid. Failed to save data to Diazonic/feeds/image-value, value cannot be larger than 1024 bytes (1 KB) when feed history is on. 11744 bytes received
+
+Turn off your Feed History from Image-feed
