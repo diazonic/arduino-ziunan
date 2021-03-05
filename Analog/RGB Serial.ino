@@ -1,6 +1,7 @@
 //Take String or Character
 // For RGB Values, use digitalWrite
 // For other colors, use AnalogWrite
+//https://www.tydac.ch/color/
 String value;
 
 void setup()
