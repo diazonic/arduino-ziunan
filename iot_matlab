@@ -1,0 +1,20 @@
+channelID = <channelID>;
+alertApiKey = '';
+alertUrl = 'https://api.thingspeak.com/alerts/send';
+options = weboptions("HeaderFields",["Thingspeak-Alerts-API-Key",alertApiKey]);
+alertSubject = sprintf("Regarding your Home Temperature");
+Data = thingSpeakRead(channelID,'NumDays',30,'Fields',1);
+if isempty(Data)
+    alertBody = ' No data read from the sensor';
+else
+    ThreshValue = 40;
+    lastValue = Data(end);
+    if(lastValue>=ThreshValue)
+        alertBody = ' High Alert! Temperature is above 40';
+    end
+end
+try
+    webwrite(alertUrl,"body",alertBody,"subject",alertSubject,options);
+catch someException
+    fprintf("Failed to send alert: %s\n",someException.message);
+end
